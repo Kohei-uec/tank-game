@@ -5,7 +5,7 @@ export class Player {
 
         this.hp = 100;
 
-        this.position = {x:0, y:0};
+        this.position = {x:0, z:0};
         this.speed = 0;
         this.angle = 0;
     }
@@ -13,7 +13,7 @@ export class Player {
     get velocity (){
         return {
             x: this.speed*Math.cos(this.angle),
-            y: this.speed*Math.sin(this.angle),
+            z: this.speed*Math.sin(this.angle),
         };
     }
 }
