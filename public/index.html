@@ -4,11 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <title>TANK</title>
-    <link rel="stylsheet" href="./default.css" />
+    <link rel="stylesheet" href="./default.css" />
+
+    <!-- script -->
     <script type="importmap">
       {
         "imports": {
-          "three": "https://unpkg.com/three@0.152.2/build/three.module.js"
+          "three": "https://unpkg.com/three@0.152.2/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.152.2/examples/jsm/"
         }
       }
     </script>
@@ -16,5 +19,7 @@
   </head>
   <body>
     <canvas id="myCanvas"></canvas>
+    <button id="wireframe_btn">wireframe</button>
+    <button id="shadow_radius">shadow_radius</button>
   </body>
 </html>
