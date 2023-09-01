@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <title>ユーザー登録</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+        <link rel="stylesheet" href="./css/default.css" />
+
+        <script type="module" src="./js/newuser.js"></script>
+  </head>
+  <body>
+    <main class="main">
+      <div class="box">
+        <div class="field">
+          <label class="label">名前</label>
+          <input type="text" class="input" id="user_name"/>
+        </div>
+        <div class="field" style="display: none;">
+            <label class="label">アイコン</label>
+            <div class="file">
+                <label class="file-label">
+                  <input class="file-input" type="file" name="resume" accept="image/*" id="input_file"/>
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Choose a file…
+                    </span>
+                  </span>
+                </label>
+            </div>
+            <div class="field">
+                <canvas id="canvas" width="128" height="128"  style="border: solid 1px #000;"></canvas>
+            </div>            
+        </div>
+  
+        <button id="save" class="button is-primary">保存</button>
+      </div>
+    </main>
+  </body>
+</html>
