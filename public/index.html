@@ -8,8 +8,26 @@
     <link rel="stylesheet" href="./css/default.css" />
 
     <script type="module" src="./js/start_room.js"></script>
+    <script type="module" src="./js/user_check.js"></script>
   </head>
   <body>
+    <header>
+      <div class="block">
+        <div class="columns is-mobile">
+          <div class="column">
+            <a href="./index.html"><div class="game_title">TANK</div></a>
+          </div>
+          <div class="column">
+            <a class="button is-link" href="./demo.html">demo</a>
+            <div id="user_name"></div> 
+          </div>
+          <div class="column">
+            <a class="button is-link" href="./newuser.html">ユーザー設定</a> 
+          </div>
+        </div>
+      </div>
+    </header>
+
     <main class="main">
       <div class="box">
         <div class="field">
@@ -29,9 +47,5 @@
         <button id="join_room" class="button is-primary">join room</button>
       </div>
     </main>
-    <div class="block">
-      <a class="button is-link" href="./demo.html">demo</a>
-      <a class="button is-link" href="./newuser.html">ユーザー登録</a>
-    </div>
   </body>
 </html>

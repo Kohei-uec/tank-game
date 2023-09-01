@@ -24,7 +24,7 @@ document.getElementById('input_file').oninput = (event)=> {
 document.getElementById('save').onclick = (event)=> {
     event.preventDefault();
 
-    let name = document.getElementById('user_name').value;
+    let name = document.getElementById('input_name').value;
     if (name.length <= 0) {
         name = 'no name';
     }
@@ -35,6 +35,6 @@ document.getElementById('save').onclick = (event)=> {
 window.addEventListener('load', ()=>{
     let name = localStorage.getItem('username');
     if(name) {
-        document.getElementById('user_name').value = name;
+        document.getElementById('input_name').value = name;
     }
 });
