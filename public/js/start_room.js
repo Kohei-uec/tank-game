@@ -32,3 +32,11 @@ document.getElementById('make_room').onclick = async (event)=>{
         return;
     }
 };
+
+//join
+document.getElementById("join_room").onclick = async ()=> {
+    const select_room = document.getElementById("select_room");
+    const selected_index = select_room.selectedIndex;
+    const room_id = select_room.options[selected_index].value;
+    location.href = "./lobby.html?room_id=" + room_id;
+};
