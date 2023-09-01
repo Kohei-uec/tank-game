@@ -7,15 +7,15 @@ export class Room {
     }
 
     //playerを追加
-    addPlayer(id, player) {
+    addPlayer(player) {
         if(this.players.size >= this.max_player) {
             throw new Error('Over the limit (players)');
         }
-        this.players.set(id, player);
+        this.players.set(player.id, player);
     }
     //playerを削除
-    delPlayer(id) {
-        this.connectedClients.delete(id);
+    delPlayer(player) {
+        this.connectedClients.delete(player.id);
     }
 
     //broadcast============================
