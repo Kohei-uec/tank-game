@@ -38,11 +38,6 @@ meshFloor.position.y = -4;
 meshFloor.receiveShadow = true;
 scene.add(meshFloor);
 
-//const material = new THREE.MeshNormalMaterial();
-//const material = new THREE.MeshBasicMaterial( {color: 0x6699FF} );
-//const material = new THREE.MeshToonMaterial({color: 0x6699FF});
-const material = new THREE.MeshStandardMaterial({ color: 0x6699FF });
-
 // 環境光源を作成
 const light = new THREE.AmbientLight(0xFFFFFF, 0.2);
 scene.add(light);
@@ -75,20 +70,28 @@ function createDirectionalLight(theta, field_width, field_height) {
 const directionalLight = createDirectionalLight(Math.PI/5, field_width, 30)
 scene.add(directionalLight);
 
+//light helper
 const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
 scene.add(helper);
 
-//キャタピラ
-const caterpillar = createCaterpillar(10);
-caterpillar.castShadow = true;
-scene.add(caterpillar);
 
-//砲塔
-const cannon = createCanon(10);
-cannon.castShadow = true;
-scene.add(cannon);
+//TANK!
+//const material = new THREE.MeshNormalMaterial();
+//const material = new THREE.MeshBasicMaterial( {color: 0x6699FF} );
+//const material = new THREE.MeshToonMaterial({color: 0x6699FF});
+const geometry = TankGeometry(10)
+const material = new THREE.MeshStandardMaterial({ color: 0x6699FF });
+const tank = new THREE.Mesh(geometry, material);
+tank.castShadow = true;
+scene.add(tank);
 
-function createCaterpillar(size) {
+function TankGeometry(size) {
+    const caterpillar = CaterpillarGeometry(size);
+    const cannon = CanonGeometry(size);
+    return BufferGeometryUtils.mergeGeometries([caterpillar, cannon]);
+}
+
+function CaterpillarGeometry(size) {
   const geometries = [];
   const box = new THREE.BoxGeometry(size, size / 2, size);
   box.translate(0, size / 4, 0);
@@ -103,14 +106,11 @@ function createCaterpillar(size) {
   geometries.push(cylinder1);
   geometries.push(cylinder2);
 
-  // ジオメトリ・マテリアル生成
-  const geometry = BufferGeometryUtils.mergeGeometries(geometries);
-  //const material = new THREE.MeshStandardMaterial({ color: 0x6699FF });
-  // メッシュを作成
-  return new THREE.Mesh(geometry, material);
+  // ジオメトリ生成
+  return BufferGeometryUtils.mergeGeometries(geometries);
 }
 
-function createCanon(size) {
+function CanonGeometry(size) {
   const geometries = [];
   const cannon_height = size / 3;
 
@@ -128,11 +128,8 @@ function createCanon(size) {
   cylinder2.translate(size / 2, size / 2 + cannon_height / 2, 0);
   geometries.push(cylinder2);
 
-  // ジオメトリ・マテリアル生成
-  const geometry = BufferGeometryUtils.mergeGeometries(geometries);
-  //const material = new THREE.MeshStandardMaterial({ color: 0x6699FF });
-  // メッシュを作成
-  return new THREE.Mesh(geometry, material);
+  // ジオメトリ生成
+  return BufferGeometryUtils.mergeGeometries(geometries);
 }
 
 tick();
@@ -141,10 +138,8 @@ tick();
 function tick() {
   //box.rotation.y += 0.01;
   //box.rotation.x += 0.01;
-  caterpillar.position.x += 0.1;
-  cannon.position.x += 0.1;
-  caterpillar.position.x %= 128;
-  cannon.position.x %= 128;
+  tank.position.x += 0.1;
+  tank.position.x %= 128;
   renderer.render(scene, camera); // レンダリング
 
   requestAnimationFrame(tick);
