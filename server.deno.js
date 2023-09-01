@@ -15,7 +15,7 @@ serve(async (req) => {
     if (req.method === "POST" && pathname === "/createroom") {
 
       //部屋が多い
-      if (rooms.length > 20) {
+      if (rooms.size > 20) {
         return new Response("部屋を作れません", { status: 403 });
       }
 
