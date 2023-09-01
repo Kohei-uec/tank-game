@@ -74,7 +74,7 @@ scene.add(directionalLight);
 
 //light helper
 const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
-scene.add(helper);
+//scene.add(helper);
 
 //TANK!
 //const material = new THREE.MeshNormalMaterial();
