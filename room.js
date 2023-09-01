@@ -1,6 +1,7 @@
 export class Room {
-    constructor(id) {
+    constructor(id, name) {
         this.id = id;
+        this.name = name;
         this.connectedClients = new Map();
         this.players = new Map();
 
@@ -55,9 +56,9 @@ export class Room {
     }
 }
 
-export function createNewRoom(rooms){
+export function createNewRoom(rooms, name){
     const id = newKey(rooms);
-    const room = new Room(id);
+    const room = new Room(id,name);
     rooms.set(id,room);
     return room;
 }
@@ -70,10 +71,10 @@ export function closeRoom(rooms, id){
     }
 }
 
-export  function newKey(map, d=5) {
+export  function newKey(map, d=4) {
     let r;
     do {
-        r = Math.floor(Math.random() * 10**5);
+        r = Math.floor(Math.random() * 10**d);
     } while (map.has(r));
     return r;
 }

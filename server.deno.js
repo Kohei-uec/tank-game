@@ -20,12 +20,16 @@ serve(async (req) => {
       }
 
       //既に部屋を立てている
+      /*
       if (rooms.has(roomid)){
         return new Response(JSON.stringify({roomid}));
-      }
-      const room = createNewRoom(roomid, did);
+      }*/
 
-      return new Response(JSON.stringify({roomid}));
+      const name = (await req.json()).name;
+
+      const room = createNewRoom(rooms,name);
+
+      return new Response(JSON.stringify(room));
     }
 
 
