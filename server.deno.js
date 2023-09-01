@@ -4,6 +4,14 @@ import { Room, createNewRoom, closeRoom, newKey } from './room.js';
 
 serve(async (req) => {
     const pathname = new URL(req.url).pathname;
+
+    //room一覧
+    if (req.method === "GET" && pathname === "/getrooms") {
+      const obj = Object.fromEntries(rooms);
+      return new Response(JSON.stringify(obj));
+    }
+
+
     console.log(pathname);
 
     if (req.method === 'GET' && pathname === '/welcome-message') {
