@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
-import {Controller} from './controller.js'
+import { Controller } from './controller.js';
 // サイズを指定
 const width = parent.innerWidth;
 const height = parent.innerHeight * 0.8;
@@ -154,10 +154,10 @@ function tick() {
         tank.position.x %= 128;
     }
     if (controller.a) {
-        tank.rotateY(-Math.PI/100)
+        tank.rotateY(-Math.PI / 100);
     }
     if (controller.d) {
-        tank.rotateY(Math.PI/100)
+        tank.rotateY(Math.PI / 100);
     }
 
     renderer.render(scene, camera); // レンダリング
