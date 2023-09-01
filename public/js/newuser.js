@@ -1,7 +1,7 @@
 /*
 document.getElementById('input_file').oninput = (event)=> {
     event.preventDefault();
-    
+
     const file = document.getElementById('input_file').files[0];
     const img = document.createElement('img');
     const canvas = document.getElementById('canvas');
@@ -21,7 +21,7 @@ document.getElementById('input_file').oninput = (event)=> {
 };
 */
 
-document.getElementById('save').onclick = (event)=> {
+document.getElementById('save').onclick = (event) => {
     event.preventDefault();
 
     let name = document.getElementById('input_name').value;
@@ -32,9 +32,9 @@ document.getElementById('save').onclick = (event)=> {
     location.href = './index.html';
 };
 
-window.addEventListener('load', ()=>{
+window.addEventListener('load', () => {
     let name = localStorage.getItem('username');
-    if(name) {
+    if (name) {
         document.getElementById('input_name').value = name;
     }
 });

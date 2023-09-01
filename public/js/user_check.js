@@ -1,6 +1,6 @@
-window.addEventListener('load', ()=>{
+window.addEventListener('load', () => {
     let name = localStorage.getItem('username');
-    if(name) {
+    if (name) {
         document.getElementById('user_name').innerText = name;
     }
 });

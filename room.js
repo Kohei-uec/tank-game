@@ -42,7 +42,7 @@ export class Room {
     //ルームを閉じる
     close() {
         for (const client of this.connectedClients.values()) {
-          /*if(client.isOwner) {
+            /*if(client.isOwner) {
             client.send(
               JSON.stringify({
                 event: "room-end",
@@ -51,30 +51,30 @@ export class Room {
           } else {
             client.close();
           }*/
-          client.close();
+            client.close();
         }
     }
 }
 
-export function createNewRoom(rooms, name){
+export function createNewRoom(rooms, name) {
     const id = newKey(rooms);
-    const room = new Room(id,name);
-    rooms.set(id,room);
+    const room = new Room(id, name);
+    rooms.set(id, room);
     return room;
 }
-export function closeRoom(rooms, id){
+export function closeRoom(rooms, id) {
     const room = rooms.get(id);
-    if(room){
-        console.log("room close",room);
+    if (room) {
+        console.log('room close', room);
         room.close();
         rooms.delete(id);
     }
 }
 
-export  function newKey(map, d=4) {
+export function newKey(map, d = 4) {
     let r;
     do {
-        r = Math.floor(Math.random() * 10**d);
+        r = Math.floor(Math.random() * 10 ** d);
     } while (map.has(r));
     return r;
 }
