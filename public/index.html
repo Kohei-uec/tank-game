@@ -4,9 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <title>TANK</title>
-    <link rel="stylesheet" href="./default.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/default.css" />
 
     <!-- script -->
+    <!--
     <script type="importmap">
       {
         "imports": {
@@ -17,10 +19,32 @@
     </script>
     <script type="module" src="main.js"></script>
     <script type="module" src="controller.js"></script>
+    -->
+
+    <script type="module" src="./js/start_room.js"></script>
   </head>
   <body>
-    <canvas id="myCanvas"></canvas>
-    <button id="wireframe_btn">wireframe</button>
-    <button id="shadow_radius">shadow_radius</button>
+    <main class="main">
+      <div class="box">
+        <div class="field">
+          <label class="label">ルーム名</label>
+          <input type="text" class="input" />
+        </div>
+        <button id="make_room" class="button is-primary">make room</button>
+      </div>
+      <div class="box">
+        <div class="field">
+          <div class="select">
+            <select id="select_room">
+              <option value="null">ルームを選択</option>
+            </select>
+          </div>
+        </div>
+        <button id="join_room" class="button is-primary">join room</button>
+      </div>
+    </main>
+    <div class="block">
+      <a class="button is-link" href="./demo.html">demo</a>
+    </div>
   </body>
 </html>
