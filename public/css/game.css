@@ -93,6 +93,10 @@ header {
     right: 0;
 }
 
+/* menu 2 */
+#menu2-btn {
+    background-color: rgba(255, 255, 255, 0.8);
+}
 #menu2-btn span,
 #menu2-btn span:before,
 #menu2-btn span:after {
@@ -121,14 +125,10 @@ header {
 #menu2-check:checked ~ #menu2-btn span::before {
     top: 0;
     transform: rotate(45deg);
-    background-color: #ffffff;
-
 }
 #menu2-check:checked ~ #menu2-btn span::after {
     top: 0;
     transform: rotate(-45deg);
-    background-color: #ffffff;
-
 }
 #menu2-check:checked ~ #menu2-box {
     top: 0;
