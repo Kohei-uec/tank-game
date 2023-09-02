@@ -1,5 +1,5 @@
 :root {
-    --menu-btn-size: 60px;
+    --menu-btn-size: 50px;
 }
 
 main {
@@ -17,6 +17,7 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
     width: 100%;
 
     position: fixed;
@@ -132,4 +133,44 @@ header {
 #menu2-check:checked ~ #menu2-box {
     top: 0;
     right: 0;
+}
+
+
+
+.UI_top_wrap {
+    z-index: 50;
+
+    position: fixed;
+    top: calc(var(--menu-btn-size) * 2);
+    left: 20%;
+
+    padding: 10px;
+    border-radius: 10px;
+    width: 60%;
+    height: fit-content;
+
+    background-color: rgba(40,40,40, 0.2);
+}
+.time {
+    text-align: center;
+    font-size: large;
+    letter-spacing: 0.2rem;
+}
+
+.UI_bottom_wrap {
+    z-index: 50;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+    height: fit-content;
+
+    background-color: rgba(40,40,40, 0.2);
+}
+.UI_bottom_wrap .info {
+    color: #fff;
 }
