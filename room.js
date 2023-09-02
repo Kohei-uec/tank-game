@@ -47,7 +47,7 @@ export class Room {
             event: 'room_info',
             room_id: this.id,
             room_name: this.name,
-            max_player: this.max_player,
+            max_member: this.max_member,
         }));
     }
 

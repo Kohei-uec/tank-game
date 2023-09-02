@@ -17,6 +17,13 @@ setSocketEventListener('update_players',(data)=>{
     }
     span.innerHTML = html;
 });
+setSocketEventListener('room_info', (data)=>{
+    const room_name = data.room_name;
+    const max_member = data.max_member;
+
+    document.getElementById('room_name').innerText = room_name;
+    document.getElementById('max_member').innerText = max_member;
+});
 
 // サイズを指定
 const width = parent.innerWidth;
