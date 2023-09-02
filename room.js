@@ -6,12 +6,12 @@ export class Room {
         this.connectedClients = new Map();
         this.players = new Map();
 
-        this.max_player = 5;
+        this.max_member = 5;
     }
 
     //playerを追加
     isMembersMax() {
-        return this.players.size >= this.max_player;
+        return this.connectedClients.size >= this.max_member;
     }
     addPlayer(player) {
         this.players.set(player.id, player);

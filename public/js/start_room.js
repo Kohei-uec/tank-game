@@ -23,9 +23,10 @@ document.getElementById('make_room').onclick = async (event) => {
         }
 
         //部屋立て成功
-        const json = await resp.json();
-        console.log('make room success', json);
-        //location.href = "./multidraw.html?roomid=" + json.roomid;
+        const room = await resp.json();
+        console.log('make room success');
+        joinRoom(room.id);
+
     } catch (err) {
         console.log(err);
         return;
@@ -37,10 +38,15 @@ document.getElementById('join_room').onclick = async () => {
     const select_room = document.getElementById('select_room');
     const selected_index = select_room.selectedIndex;
     const room_id = select_room.options[selected_index].value;
-    location.href = './lobby.html?room_id=' + room_id;
+    joinRoom(room_id);
 };
 
-//定期的にroomを読み込む
+function joinRoom(room_id) {
+    console.log('join');
+    location.href = './lobby.html?room_id=' + room_id;
+}
+
+//roomを読み込む
 document.getElementById('reload_rooms').onclick = setRooms;
 setInterval(setRooms, 5000);
 async function setRooms() {

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/default.css" />
 
     <script type="module" src="./js/start_room.js"></script>
+    <script type="module" src="./js/newuser.js"></script>
     <script type="module" src="./js/user_check.js"></script>
   </head>
   <body>
@@ -34,10 +35,38 @@
     <main class="main">
       <div class="box">
         <div class="field">
+          <label class="label">名前</label>
+          <input type="text" class="input" id="input_name"/>
+        </div>
+        <div class="field" style="display: none;">
+            <label class="label">アイコン</label>
+            <div class="file">
+                <label class="file-label">
+                  <input class="file-input" type="file" name="resume" accept="image/*" id="input_file"/>
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Choose a file…
+                    </span>
+                  </span>
+                </label>
+            </div>
+            <div class="field">
+                <canvas id="canvas" width="128" height="128"  style="border: solid 1px #000;"></canvas>
+            </div>            
+        </div>
+  
+        <button id="save" class="button is-primary">保存</button>
+      </div>
+      
+      <div class="box">
+        <div class="field">
           <label class="label">ルーム名</label>
           <input type="text" class="input" id="room_name"/>
         </div>
-        <button id="make_room" class="button is-primary">make room</button>
+        <button id="make_room" class="button is-primary">ルームを立てる</button>
       </div>
       <div class="box">
         <div class="field">
@@ -50,7 +79,7 @@
 
 
         </div>
-        <button id="join_room" class="button is-primary">join room</button>
+        <button id="join_room" class="button is-primary">参加</button>
       </div>
     </main>
   </body>

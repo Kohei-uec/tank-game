@@ -89,7 +89,7 @@ serve(async (req) => {
                 console.log('test');
             } else if (json.event === 'end' && isOwner) {
                 console.log('end room');
-                closeRoom(room_id);
+                closeRoom(rooms, room_id);
             }
         };
         socket.onerror = (e) => {
@@ -100,7 +100,7 @@ serve(async (req) => {
 
             //auto del room
             if (room.connectedClients.size === 0) {
-                closeRoom(room_id);
+                closeRoom(rooms, room_id);
                 return;
             }
 

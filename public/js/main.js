@@ -4,7 +4,7 @@ import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 import { Controller } from './controller.js';
 // サイズを指定
 const width = parent.innerWidth;
-const height = parent.innerHeight * 0.8;
+const height = parent.innerHeight;
 const canvas = document.getElementById('myCanvas');
 
 // レンダラーを作成
