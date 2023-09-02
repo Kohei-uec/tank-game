@@ -3,10 +3,20 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import { Controller } from './controller.js';
 import { connectSocket, setSocketEventListener } from './connect.js';
+import { stringJSON2map } from './util.js';
 
+//connection
 const socket = connectSocket();
-
-
+setSocketEventListener('update_players',(data)=>{
+    // refresh displayed user list
+    const players = stringJSON2map(data.players);
+    const span = document.getElementById('member');
+    let html = '';
+    for (const player of players.values()) {
+        html += `<div>[${player.id}]${player.name}</div>`;
+    }
+    span.innerHTML = html;
+});
 
 // サイズを指定
 const width = parent.innerWidth;

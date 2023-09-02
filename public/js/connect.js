@@ -51,12 +51,6 @@ setSocketEventListener('update_players',(data)=>{
     // refresh displayed user list
     console.log(stringJSON2map(data.players));
     return;
-    let userListHtml = "";
-    for (const name of data.players) {
-        userListHtml += `<div> ${name} </div>`;
-    }
-    document.getElementById("users").innerHTML = userListHtml;
-    return;
 });
 
 /*

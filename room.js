@@ -68,7 +68,7 @@ export function createNewRoom(rooms, name) {
 export function closeRoom(rooms, id) {
     const room = rooms.get(id);
     if (room) {
-        console.log('room close', room);
+        console.log('room close', room.id);
         room.close();
         rooms.delete(id);
     }
