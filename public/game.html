@@ -23,6 +23,7 @@
     <script type="module" src="./js/main.js"></script>
     <script type="module" src="./js/controller.js"></script>
     <script type="module" src="./js/game.js"></script>
+    <script type="module" src="./js/lobby.js"></script>
   </head>
   <body>
     <header>
@@ -39,6 +40,22 @@
         <div>member: <span id="member"></span></div>
         <div><button id="room_exit" class="button">ルームを抜ける</button></div>
 
+        <h2>Body Color</h2>
+        <div class="control">
+          <input type="color" id="user_color" class="input" />
+        </div>
+
+        <h2>Team</h2>
+        <div class="control">
+          <label class="radio">
+            <input type="radio" name="answer">
+            team 1
+          </label>
+          <label class="radio">
+            <input type="radio" name="answer">
+            team 2
+          </label>
+        </div>
       </div>
       
       <div class="menu-box" id="menu2-box">

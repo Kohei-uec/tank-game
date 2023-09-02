@@ -4,6 +4,7 @@ import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 import { Controller } from './controller.js';
 import { connectSocket, setSocketEventListener } from './connect.js';
 import { stringJSON2map } from './util.js';
+import { setColorChangedListener, lockLobbyFunc, unlockLobbyFunc } from './lobby.js';
 
 //connection ==============================================
 const socket = await connectSocket();
@@ -47,6 +48,10 @@ setSocketEventListener('isOwner', (data)=>{
 document.getElementById('room_exit').onclick = ()=>{
     location.href = './index.html';
 };
+
+setColorChangedListener((color)=>{
+    resetTankColor(color);
+});
 
 // サイズを指定
 const width = parent.innerWidth;
@@ -126,6 +131,9 @@ const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
 //const material = new THREE.MeshNormalMaterial();
 //const material = new THREE.MeshBasicMaterial( {color: 0x6699FF} );
 //const material = new THREE.MeshToonMaterial({color: 0x6699FF});
+function resetTankColor(color){
+    material.setValues({color: color});
+}
 const geometry = TankGeometry(10);
 const material = new THREE.MeshStandardMaterial({ color: 0x6699FF });
 const tank = new THREE.Mesh(geometry, material);
