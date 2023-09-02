@@ -2,6 +2,7 @@ export class Room {
     constructor(id, name) {
         this.id = id;
         this.name = name;
+        this.owner_pass = "abc";
         this.connectedClients = new Map();
         this.players = new Map();
 
@@ -9,10 +10,10 @@ export class Room {
     }
 
     //playerを追加
+    isMembersMax() {
+        return this.players.size >= this.max_player;
+    }
     addPlayer(player) {
-        if (this.players.size >= this.max_player) {
-            throw new Error('Over the limit (players)');
-        }
         this.players.set(player.id, player);
     }
     //playerを削除
@@ -32,26 +33,26 @@ export class Room {
     }
 
     //playerを更新
-    broadcast_player() {
+    broadcast_players() {
         this.broadcast(JSON.stringify({
-            event: 'update-players',
+            event: 'update_players',
             players: this.players,
+        }));
+    }
+    //
+    sendRoomInfo(user_id) {
+        this.broadcast(JSON.stringify({
+            event: 'room_info',
+            room_id: this.id,
+            room_name: this.name,
+            max_player: this.max_player,
         }));
     }
 
     //ルームを閉じる
     close() {
         for (const client of this.connectedClients.values()) {
-            /*if(client.isOwner) {
-            client.send(
-              JSON.stringify({
-                event: "room-end",
-              })
-            );
-          } else {
-            client.close();
-          }*/
-            client.close();
+            client.close(1008, 'close room');
         }
     }
 }
