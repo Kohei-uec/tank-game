@@ -1,3 +1,5 @@
+import { map2stringJSON } from "./public/js/util.js";
+
 export class Room {
     constructor(id, name) {
         this.id = id;
@@ -24,7 +26,6 @@ export class Room {
     //broadcast============================
     broadcast(message) {
         for (const client of this.connectedClients.values()) {
-            console.log(client);
             if (client.readyState !== 1) {
                 return;
             }
@@ -34,9 +35,10 @@ export class Room {
 
     //playerを更新
     broadcast_players() {
+        console.log(map2stringJSON(this.players));
         this.broadcast(JSON.stringify({
             event: 'update_players',
-            players: this.players,
+            players: map2stringJSON(this.players),
         }));
     }
     //

@@ -2,6 +2,7 @@ import { serve } from 'denohttp/server.ts';
 import { serveDir } from 'denohttp/file_server.ts';
 import { closeRoom, createNewRoom, newKey, Room } from './room.js';
 import { Player } from './player.js';
+import { map2stringJSON } from './public/js/util.js';
 
 serve(async (req) => {
     const url = new URL(req.url);
@@ -9,8 +10,7 @@ serve(async (req) => {
 
     //room一覧
     if (req.method === 'GET' && pathname === '/getrooms') {
-        const obj = Object.fromEntries(rooms);
-        return new Response(JSON.stringify(obj));
+        return new Response(map2stringJSON(rooms));
     }
 
     console.log(pathname);
@@ -35,6 +35,7 @@ serve(async (req) => {
         const name = (await req.json()).name;
 
         const room = createNewRoom(rooms, name);
+        console.log('new room id:', room.id);
 
         return new Response(JSON.stringify(room));
     }
@@ -45,7 +46,7 @@ serve(async (req) => {
         const { socket, response } = Deno.upgradeWebSocket(req);
         const user_name = url.searchParams.get('name');
         const room_id = url.searchParams.get('room') - 0;
-        console.log(rooms.has(room_id),room_id,rooms);
+        //console.log(rooms.has(room_id),room_id,rooms);
 
         //部屋がない
         if (!rooms.has(room_id)) {
@@ -72,6 +73,7 @@ serve(async (req) => {
         //user追加
         const user_id = newKey(rooms);
         const player = new Player(user_id, user_name);
+        room.addPlayer(player);
         room.connectedClients.set(user_id, socket);
 
         //socket listener================================

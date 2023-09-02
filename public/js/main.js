@@ -2,6 +2,12 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 import { Controller } from './controller.js';
+import { connectSocket, setSocketEventListener } from './connect.js';
+
+const socket = connectSocket();
+
+
+
 // サイズを指定
 const width = parent.innerWidth;
 const height = parent.innerHeight;

@@ -1,3 +1,5 @@
+import { JSON2map } from "./util.js";
+
 document.getElementById('make_room').onclick = async (event) => {
     event.preventDefault();
     console.log('make room');
@@ -25,7 +27,7 @@ document.getElementById('make_room').onclick = async (event) => {
         //部屋立て成功
         const room = await resp.json();
         console.log('make room success');
-        joinRoom(room.id);
+        //joinRoom(room.id);
 
     } catch (err) {
         console.log(err);
@@ -34,16 +36,19 @@ document.getElementById('make_room').onclick = async (event) => {
 };
 
 //join
-document.getElementById('join_room').onclick = async () => {
+document.getElementById('join_room').onclick = () => {
     const select_room = document.getElementById('select_room');
     const selected_index = select_room.selectedIndex;
     const room_id = select_room.options[selected_index].value;
+    if(room_id === 'null'){
+        return;
+    }
     joinRoom(room_id);
 };
 
 function joinRoom(room_id) {
     console.log('join');
-    location.href = './lobby.html?room_id=' + room_id;
+    location.href = './game.html?room_id=' + room_id;
 }
 
 //roomを読み込む
@@ -58,11 +63,7 @@ async function setRooms() {
 async function getRooms() {
     const resp = await fetch('/getrooms');
     const json = await resp.json();
-    const rooms = new Map();
-    for (const [key, value] of Object.entries(json)) {
-        rooms.set(key, value);
-    }
-    return rooms;
+    return JSON2map(json);
 }
 
 //room一覧を更新
