@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta charset="utf-8">
+    <title>TANK</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/default.css" />
+    <link rel="stylesheet" href="./css/game.css" />
+
+    <!-- script -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.152.2/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.152.2/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="./js/main.js"></script>
+    <script type="module" src="./js/controller.js"></script>
+  </head>
+  <body>
+    <header>
+
+    </header>
+
+    <main class="main">
+      <canvas id="myCanvas"></canvas>
+      <div id="for_debug">
+        <button id="wireframe_btn">wireframe</button>
+        <button id="shadow_radius">shadow_radius</button>  
+      </div>
+  
+    </main>
+
+  </body>
+</html>
