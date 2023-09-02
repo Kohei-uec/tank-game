@@ -5,7 +5,7 @@ import { Controller } from './controller.js';
 import { connectSocket, setSocketEventListener } from './connect.js';
 import { stringJSON2map } from './util.js';
 
-//connection
+//connection ==============================================
 const socket = connectSocket();
 setSocketEventListener('update_players',(data)=>{
     // refresh displayed user list
@@ -23,6 +23,19 @@ setSocketEventListener('room_info', (data)=>{
 
     document.getElementById('room_name').innerText = room_name;
     document.getElementById('max_member').innerText = max_member;
+});
+setSocketEventListener('isOwner', (data)=>{
+    document.getElementById('menu2-btn').style.display = 'flex';
+    //ルームを閉じるボタン
+    const btn = document.getElementById("room_close");
+    btn.disabled = false;
+    btn.onclick = ()=>{
+        socket.send(
+            JSON.stringify({
+                event: "end",
+            })
+        );
+    };
 });
 
 // サイズを指定

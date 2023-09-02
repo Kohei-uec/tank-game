@@ -23,7 +23,7 @@ export async function connectSocket(){
 
     socket.onclose = (m) => {
         console.log(m)
-        //location.href = "./index.html";
+        location.href = "./index.html";
     }
 
     return socket;

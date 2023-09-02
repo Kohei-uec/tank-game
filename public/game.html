@@ -22,31 +22,32 @@
     </script>
     <script type="module" src="./js/main.js"></script>
     <script type="module" src="./js/controller.js"></script>
-    <script type="module" src="./js/lobby.js"></script>
+    <script type="module" src="./js/game.js"></script>
   </head>
   <body>
     <header>
       <input type="checkbox" id="menu1-check" class="menu-btn-check">
       <label for="menu1-check" id="menu1-btn" class="menu-btn"><span></span></label>
       <input type="checkbox" id="menu2-check" class="menu-btn-check">
-      <label for="menu2-check" id="menu2-btn" class="menu-btn"><span></span></label>
+      <label for="menu2-check" id="menu2-btn" class="menu-btn" style="display: none;"><span></span></label>
 
       <div class="menu-box" id="menu1-box">
-        <div>
-          <h2>Room Info</h2>
-          <div>room id: <span id="room_id"></span></div>
-          <div>room name: <span id="room_name"></span></div>
-          <div>max member: <span id="max_member"></span></div>
-          <div>member: <span id="member"></span></div>
-        </div>
+        <h2>Room Info</h2>
+        <div>room id: <span id="room_id"></span></div>
+        <div>room name: <span id="room_name"></span></div>
+        <div>max member: <span id="max_member"></span></div>
+        <div>member: <span id="member"></span></div>
+        <div><button id="room_exit" class="button">ルームを抜ける</button></div>
+
       </div>
       
       <div class="menu-box" id="menu2-box">
-          <h2>for this Room Owner</h2>
-          <div id="for_debug">
-            <button id="wireframe_btn">wireframe</button>
-            <button id="shadow_radius">shadow_radius</button>  
-          </div>
+        <h2>Room setting</h2>
+        <div><button id="room_close" class="button">ルームを閉じる</button></div>
+        <div id="for_debug">
+          <button id="wireframe_btn" class="button">wireframe</button>
+          <button id="shadow_radius" class="button">shadow_radius</button>  
+        </div>
           
       </div>
 
