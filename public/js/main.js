@@ -6,7 +6,7 @@ import { connectSocket, setSocketEventListener } from './connect.js';
 import { stringJSON2map } from './util.js';
 
 //connection ==============================================
-const socket = connectSocket();
+const socket = await connectSocket();
 setSocketEventListener('update_players',(data)=>{
     // refresh displayed user list
     const players = stringJSON2map(data.players);
@@ -35,6 +35,13 @@ setSocketEventListener('isOwner', (data)=>{
                 event: "end",
             })
         );
+    };
+    //owner ui
+    const start_btn = document.getElementById('game_start');
+    start_btn.style.display = 'block';
+    start_btn.onclick = ()=>{
+        socket.send(JSON.stringify({event: 'game_start'}))
+        start_btn.display = 'none';
     };
 });
 document.getElementById('room_exit').onclick = ()=>{

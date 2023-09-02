@@ -17,7 +17,6 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
     width: 100%;
 
     position: fixed;
@@ -146,16 +145,10 @@ header {
 
 .UI_top_wrap {
     z-index: 50;
-
-    position: fixed;
-    top: calc(var(--menu-btn-size) * 2);
-    left: 20%;
-
     padding: 10px;
     border-radius: 10px;
     width: 60%;
     height: fit-content;
-
     background-color: rgba(40,40,40, 0.2);
 }
 .time {
@@ -180,4 +173,8 @@ header {
 }
 .UI_bottom_wrap .info {
     color: #fff;
+}
+
+#game_start {
+    display: none;
 }
