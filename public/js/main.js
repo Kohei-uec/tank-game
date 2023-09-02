@@ -37,6 +37,9 @@ setSocketEventListener('isOwner', (data)=>{
         );
     };
 });
+document.getElementById('room_exit').onclick = ()=>{
+    location.href = './index.html';
+};
 
 // サイズを指定
 const width = parent.innerWidth;

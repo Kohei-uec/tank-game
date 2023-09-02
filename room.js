@@ -35,7 +35,6 @@ export class Room {
 
     //playerを更新
     broadcast_players() {
-        console.log(map2stringJSON(this.players));
         this.broadcast(JSON.stringify({
             event: 'update_players',
             players: map2stringJSON(this.players),
