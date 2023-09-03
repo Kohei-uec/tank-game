@@ -38,12 +38,15 @@ export function initialize() {
 
     // カメラを作成
     camera = new THREE.PerspectiveCamera(45, width / height);
-    camera.position.set(0, 50, 50);
+    camera.position.set(-100, 150, 0);
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+    /*
     // カメラコントローラーを作成
     controls = new OrbitControls(camera, canvas);
     // 滑らかにカメラコントローラーを制御する
     controls.enableDamping = true;
     controls.dampingFactor = 0.2;
+    */
 
     // 床を作成
     meshFloor = new THREE.Mesh(
@@ -241,4 +244,20 @@ function BulletMesh(size){
     const bullet = new THREE.Mesh(geometry, material);
     bullet.position.y = size * 2 / 3;
     return bullet;
+}
+
+export function setCamera(player){
+    //console.log('camera')
+    const x = player.position.x;
+    const z = player.position.z;
+    const dx = 100 * Math.cos(player.angle + Math.PI);
+    const dz = 100 * Math.sin(player.angle + Math.PI);
+    const x1 = x + dx;
+    const z1 = z + dz;
+    const prex = camera.position.x;
+    const prez = camera.position.z;
+    const alpha = 0.1; 
+    camera.position.x = prex - (prex - x1)*alpha;
+    camera.position.z = prez - (prez - z1)*alpha;
+    camera.lookAt(new THREE.Vector3(x - dx/4, 0, z - dz/4));
 }

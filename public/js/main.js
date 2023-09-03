@@ -35,10 +35,12 @@ setSocketEventListener('update_players',(data)=>{
 setSocketEventListener('update_model',(data)=>{
     players = stringJSON2map(data.players);
     bullets = stringJSON2map(data.bullets);
+    player = players.get(player.id);
     for (const player of players.values()) {
         View.setMyTankPos(player);
     }
     View.updateBullets(bullets);
+    View.setCamera(player);
 });
 setSocketEventListener('update_player', (data)=>{
     const player = data.player;
@@ -139,20 +141,6 @@ View.initialize();
 // 毎フレーム時に実行されるイベント
 View.addEventListener( ()=>{
     return;
-    if (controller.w) {
-        View.myTank.position.x += 0.1;
-        View.myTank.position.x %= 128;
-    }
-    if (controller.s) {
-        View.myTank.position.x -= 0.1;
-        View.myTank.position.x %= 128;
-    }
-    if (controller.a) {
-        View.myTank.position.z -= 0.1;
-    }
-    if (controller.d) {
-        View.myTank.position.z += 0.1;
-    }
 });
 
 document.getElementById('wireframe_btn').onclick = () => {
