@@ -4,6 +4,7 @@ export class Controller {
         this.s = false;
         this.a = false;
         this.d = false;
+        this.shoot = false;
         this.onChange = null;
         this.setEventListener();
     }
@@ -23,6 +24,8 @@ export class Controller {
                 this.s = true;
             } else if (event.keyCode === 68) {
                 this.d = true;
+            } else if (event.keyCode === 32) {
+                this.shoot = true;
             }
             this.onChange();
             //console.log(event.keyCode);
@@ -41,6 +44,8 @@ export class Controller {
                 this.s = false;
             } else if (event.keyCode === 68) {
                 this.d = false;
+            } else if (event.keyCode === 32) {
+                this.shoot = false;
             }
             this.onChange();
             //console.log(event.keyCode);

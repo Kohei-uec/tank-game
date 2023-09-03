@@ -26,4 +26,25 @@ export class Player {
         this.position.x += v.x;
         this.position.z += v.z;
     }
+
+}
+
+export class Bullet{
+    constructor(id,player,speed){
+        this.id = id;
+        this.x = player.position.x;
+        this.z = player.position.z;
+        this.angle = player.angle;
+        this.speed = speed;
+    }
+    getVelocity(speed) {
+        return {
+            x: speed * Math.cos(this.angle),
+            z: speed * Math.sin(this.angle),
+        };
+    }
+    move(v){
+        this.x += v.x;
+        this.z += v.z;
+    }
 }

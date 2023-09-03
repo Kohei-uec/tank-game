@@ -122,6 +122,7 @@ export function delTank(players){
             scene.remove(mesh);
             mesh.material.dispose();
             mesh.geometry.dispose();
+            tanks.delete(tank_key);
         }
     }
 }
@@ -129,6 +130,7 @@ export function setMyTankPos(player) {
     const myTank = tanks.get(player.id);
     myTank.position.x = player.position.x;
     myTank.position.z = player.position.z;
+    myTank.rotation.y = -player.angle;
 }
 export function setMyTankColor(player, color){
     const tank = tanks.get(player.id);
@@ -197,4 +199,46 @@ function CanonGeometry(size) {
 
     // ジオメトリ生成
     return BufferGeometryUtils.mergeGeometries(geometries);
+}
+
+//bullet
+const bullets = new Map();
+function addBullet (id) {
+    const b = BulletMesh(10);
+    bullets.set(id, b);
+    scene.add(b);
+}
+function delBullet(model_bullets){
+    for(const bullet_key of bullets.keys()) {
+        if(!model_bullets.has(bullet_key)){
+            const mesh = bullets.get(bullet_key);
+            scene.remove(mesh);
+            mesh.material.dispose();
+            mesh.geometry.dispose();
+            bullets.delete(bullet_key);
+        }
+    }
+}
+export function updateBullets(model_bullets) {
+    //削除
+    delBullet(model_bullets);
+    //追加
+    for(const b of model_bullets.keys()){
+        if(!bullets.has(b)){
+            addBullet(b);
+        }
+    }
+    //座標更新
+    for(const b of model_bullets.values()){
+        const bullet = bullets.get(b.id);
+        bullet.position.x = b.x;
+        bullet.position.z = b.z;
+    }
+}
+function BulletMesh(size){
+    const geometry = new THREE.SphereGeometry(size/20, 16, 8);
+    const material = new THREE.MeshStandardMaterial({ color: 0x6699FF });
+    const bullet = new THREE.Mesh(geometry, material);
+    bullet.position.y = size * 2 / 3;
+    return bullet;
 }

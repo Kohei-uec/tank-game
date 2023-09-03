@@ -9,6 +9,7 @@ export class Room {
         this.connectedClients = new Map();
         this.players = new Map();
         this.controllers = new Map();
+        this.bullets = new Map();
 
         this.max_member = 5;
     }
@@ -56,6 +57,7 @@ export class Room {
         this.broadcast(JSON.stringify({
             event: 'update_model',
             players: map2stringJSON(this.players),
+            bullets: map2stringJSON(this.bullets),
         }));
     }
     //one player

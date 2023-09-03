@@ -8,6 +8,7 @@ import { setColorChangedListener, lockLobbyFunc, unlockLobbyFunc } from './lobby
 import * as View from './view.js';
 
 let player = null;
+let bullets = null;
 //connection ==============================================
 const socket = await connectSocket();
 let players = null;
@@ -33,9 +34,11 @@ setSocketEventListener('update_players',(data)=>{
 });
 setSocketEventListener('update_model',(data)=>{
     players = stringJSON2map(data.players);
+    bullets = stringJSON2map(data.bullets);
     for (const player of players.values()) {
         View.setMyTankPos(player);
     }
+    View.updateBullets(bullets);
 });
 setSocketEventListener('update_player', (data)=>{
     const player = data.player;
@@ -109,10 +112,16 @@ setSocketEventListener('game_over', (data)=>{
 //controller
 const controller = new Controller();
 controller.onChange = ()=>{
-    socket.send(JSON.stringify({
-        event: 'control',
-        controller: controller,
-    }));
+    if(controller.shoot) {
+        socket.send(JSON.stringify({
+            event: 'shoot',
+        }));
+    }else {
+        socket.send(JSON.stringify({
+            event: 'control',
+            controller: controller,
+        }));
+    }
 }
 
 //color

@@ -1,10 +1,11 @@
 import { serve } from 'denohttp/server.ts';
 import { serveDir } from 'denohttp/file_server.ts';
 import { closeRoom, createNewRoom, newKey, Room } from './room.js';
-import { Player } from './player.js';
+import { Player, Bullet } from './player.js';
 import { map2stringJSON } from './public/js/util.js';
 import { setMyEventListener, switchMyEvent } from './my_event.js';
 import { GameManager } from './game_manager.js';
+import { Model } from './model.js';
 
 serve(async (req) => {
     const url = new URL(req.url);
@@ -89,7 +90,7 @@ serve(async (req) => {
         };
         socket.onmessage = (e) => {
             const json = JSON.parse(e.data);
-            console.log('socket event:', json.event);
+            //console.log('socket event:', json.event);
             switchMyEvent(json, [room, player]);
         };
         socket.onerror = (e) => {
@@ -120,10 +121,20 @@ serve(async (req) => {
 
 const rooms = new Map();
 
+setMyEventListener('end', (data, options)=>{
+    const [room, player] = options;
+    if(player.isOwner){
+        closeRoom(rooms, room.id);
+    }
+})
+
 setMyEventListener('game_start', (data, options)=>{
     const [room, player] = options;
     if(!player.isOwner){return;}
     const GM = new GameManager(room);
+    const model = new Model(room);
+
+    GM.model = model;
     GM.initialize();
     GM.onUpdateTime = (time)=> {
         room.broadcast_time(time);
@@ -132,6 +143,13 @@ setMyEventListener('game_start', (data, options)=>{
         room.broadcast_game_over()
         //closeRoom(rooms, room.id);
     }
+
+
+    setMyEventListener('shoot', (data, options)=>{
+        const [room, player] = options;
+        model.shoot(player);
+    
+    });
 });
 
 setMyEventListener('control', (data, options)=>{
