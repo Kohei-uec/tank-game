@@ -39,6 +39,7 @@ serve(async (req) => {
 
         const room = createNewRoom(rooms, name);
         const model = new Model(room);
+        model.onupdate = ()=>{room.broadcast_model()};
         room.model = model;
         room.model.initialize();
         room.model.start();

@@ -10,7 +10,7 @@ export class Controller{
 
 export class Model{
     constructor(room){
-        this.room = room;
+        this.onupdate = null;
         this.players = room.players;
         this.controllers = room.controllers;
         this.field_width = 256;
@@ -60,8 +60,20 @@ export class Model{
                 this.bullets.delete(bullet.id);
             }
         }
+
+        //hit check
+        for (const bullet of this.bullets.values()){
+            for(const player of this.players.values()){
+                const isHit = isHitPoint2Circle(
+                    {x:bullet.x, z:bullet.z},
+                    player.position,
+                    size*1.4,
+                );
+                //console.log(isHit);
+            }
+        }
         
-        this.room.broadcast_model();
+        this.onupdate();
     }
 
     update_player(player){
@@ -119,4 +131,11 @@ export class Model{
         );
     }
 
+}
+
+const size = 10;
+
+function isHitPoint2Circle (point, center, r){
+    const distance2 = (point.x - center.x) ** 2 + (point.z - center.z)**2;
+    return r**2 >= distance2;
 }

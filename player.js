@@ -28,13 +28,13 @@ export class Player {
     }
 
 }
-
+const size = 10;
 export class Bullet{
     constructor(id,player,speed){
         this.id = id;
-        this.x = player.position.x;
-        this.z = player.position.z;
         this.angle = player.angle;
+        this.x = player.position.x + size*Math.cos(this.angle);
+        this.z = player.position.z + size*Math.sin(this.angle);
         this.speed = speed;
     }
     getVelocity(speed) {
