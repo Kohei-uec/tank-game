@@ -18,6 +18,7 @@ export class GameManager {
         //set players position
         for(const player of this.players.values()) {
             player.setPosition(0,0);
+            player.hp = 100;
         }
 
         //init field

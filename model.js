@@ -67,9 +67,13 @@ export class Model{
                 const isHit = isHitPoint2Circle(
                     {x:bullet.x, z:bullet.z},
                     player.position,
-                    size*1.4,
+                    size*0.9,
                 );
-                //console.log(isHit);
+                if(isHit){
+                    console.log('hit');
+                    player.hp -= 10;
+                    this.bullets.delete(bullet.id);
+                }
             }
         }
         

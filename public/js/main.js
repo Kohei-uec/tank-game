@@ -6,6 +6,7 @@ import { connectSocket, setSocketEventListener } from './connect.js';
 import { stringJSON2map } from './util.js';
 import { setColorChangedListener, lockLobbyFunc, unlockLobbyFunc } from './lobby.js';
 import * as View from './view.js';
+import * as UI from './ui.js';
 
 let player = null;
 let bullets = null;
@@ -41,6 +42,7 @@ setSocketEventListener('update_model',(data)=>{
     }
     View.updateBullets(bullets);
     View.setCamera(player);
+    UI.setHP(player.hp);
 });
 setSocketEventListener('update_player', (data)=>{
     const player = data.player;
