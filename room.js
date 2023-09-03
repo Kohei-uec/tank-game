@@ -1,4 +1,5 @@
 import { map2stringJSON } from "./public/js/util.js";
+import { GameManager } from "./game_manager.js";
 
 export class Room {
     constructor(id, name) {
@@ -22,6 +23,13 @@ export class Room {
     delPlayer(player) {
         this.connectedClients.delete(player.id);
     }
+
+    /*
+    //game manager
+    setGameManager() {
+        this.gameManager = new GameManager(this);
+    }
+    */
 
     //broadcast============================
     broadcast(message) {

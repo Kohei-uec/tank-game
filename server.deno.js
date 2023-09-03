@@ -3,6 +3,8 @@ import { serveDir } from 'denohttp/file_server.ts';
 import { closeRoom, createNewRoom, newKey, Room } from './room.js';
 import { Player } from './player.js';
 import { map2stringJSON } from './public/js/util.js';
+import { setMyEventListener, switchMyEvent } from './my_event.js';
+import { GameManager } from './game_manager.js';
 
 serve(async (req) => {
     const url = new URL(req.url);
@@ -73,6 +75,7 @@ serve(async (req) => {
         //user追加
         const user_id = newKey(rooms);
         const player = new Player(user_id, user_name);
+        player.isOwner = isOwner;
         room.addPlayer(player);
         room.connectedClients.set(user_id, socket);
 
@@ -87,12 +90,7 @@ serve(async (req) => {
         socket.onmessage = (e) => {
             const json = JSON.parse(e.data);
             console.log('socket event:', json.event);
-            if (json.event === 'test') {
-                console.log('test');
-            } else if (json.event === 'end' && isOwner) {
-                console.log('end room');
-                closeRoom(rooms, room_id);
-            }
+            switchMyEvent(json, [room, player]);
         };
         socket.onerror = (e) => {
             console.log('socket errored:', e);
@@ -121,3 +119,10 @@ serve(async (req) => {
 });
 
 const rooms = new Map();
+
+setMyEventListener('game_start', (data, options)=>{
+    const [room, player] = options;
+    if(!player.isOwner){return;}
+    const GM = new GameManager(room)
+    GM.initialize();
+})

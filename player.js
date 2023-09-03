@@ -10,10 +10,15 @@ export class Player {
         this.angle = 0;
     }
 
-    get velocity() {
+    getVelocity() {
         return {
             x: this.speed * Math.cos(this.angle),
             z: this.speed * Math.sin(this.angle),
         };
+    }
+
+    setPosition(x,z) {
+        this.position.x = x;
+        this.position.z = z;
     }
 }
