@@ -27,7 +27,7 @@ document.getElementById('make_room').onclick = async (event) => {
         //部屋立て成功
         const room = await resp.json();
         console.log('make room success');
-        //joinRoom(room.id);
+        joinRoom(room.id);
 
     } catch (err) {
         console.log(err);

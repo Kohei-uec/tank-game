@@ -24,6 +24,7 @@ export class Model{
 
         this.bullet_speed = 100/this.fps;
         this.bullets = room.bullets;
+        this.bullet_num = 0;
     }
 
     start(){
@@ -47,20 +48,17 @@ export class Model{
         for(const bullet of this.bullets.values()){
             this.update_bullet(bullet);
         }
-        
-        this.room.broadcast_model();
-        /*
-        for(let i=0; i < player.bullets.length; i++){
-            const bullet = player.bullets[i];
+        for(const bullet of this.bullets.values()){
             const x = bullet.x;
             const z = bullet.z;
-            const w = this.field_width;
+            const w = this.field_width/2;
             if(x < -w || x > w || z < -w || z > w){
                 //del bullet
-                player.bullets.splice(i,1);
+                this.bullets.delete(bullet.id);
             }
         }
-         */
+        
+        this.room.broadcast_model();
     }
 
     update_player(player){
@@ -110,8 +108,8 @@ export class Model{
     }
     //
     shoot(player){
-        if(this.bullets.size > 20){return;}
-        const id = player.id + (this.bullets.size +1)*10000;
+        if(this.bullets.size > 100){return;}
+        const id = player.id*10000+ (this.bullet_num++ % 1000);
         this.bullets.set(
             id,
             new Bullet(id, player, this.bullet_speed)

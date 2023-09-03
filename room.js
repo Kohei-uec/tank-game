@@ -11,7 +11,7 @@ export class Room {
         this.controllers = new Map();
         this.bullets = new Map();
 
-        this.max_member = 5;
+        this.max_member = 10;
     }
 
     //playerを追加
