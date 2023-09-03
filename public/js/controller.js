@@ -4,10 +4,12 @@ export class Controller {
         this.s = false;
         this.a = false;
         this.d = false;
+        this.onChange = null;
         this.setEventListener();
     }
 
     setEventListener() {
+        //space => 32
         window.addEventListener('keydown', (event) => {
             if (event.isComposing || event.keyCode === 229) {
                 return;
@@ -15,18 +17,14 @@ export class Controller {
             // 何かを行う
             if (event.keyCode === 87) {
                 this.w = true;
-                return;
             } else if (event.keyCode === 65) {
                 this.a = true;
-                return;
             } else if (event.keyCode === 83) {
                 this.s = true;
-                return;
             } else if (event.keyCode === 68) {
                 this.d = true;
-                return;
             }
-
+            this.onChange();
             console.log(event.keyCode);
         });
 
@@ -37,18 +35,14 @@ export class Controller {
             // 何かを行う
             if (event.keyCode === 87) {
                 this.w = false;
-                return;
             } else if (event.keyCode === 65) {
                 this.a = false;
-                return;
             } else if (event.keyCode === 83) {
                 this.s = false;
-                return;
             } else if (event.keyCode === 68) {
                 this.d = false;
-                return;
             }
-
+            this.onChange();
             console.log(event.keyCode);
         });
     }

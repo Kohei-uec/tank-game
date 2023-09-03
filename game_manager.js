@@ -4,6 +4,9 @@ export class GameManager {
         this.players = room.players;
         this.field = new Field();
         this.time = 5 * 60 * 1000;
+
+        this.onTimeOver = null;
+        this.onUpdateTime = null;
     }
 
     initialize() {
@@ -27,18 +30,17 @@ export class GameManager {
         const delay = 1000; //millisecond
         return setInterval(()=>{
             this.time -= delay;
+            this.onUpdateTime(this.time);
             if(this.time <= 0){
                 clearInterval(this.timer);
                 this.timeOver();
             }
         },delay)
     }
-    updateTime() {
-        console.log(this.time);
-    }
 
     timeOver() {
         console.log('time over');
+        this.onTimeOver();
     }
 
 }

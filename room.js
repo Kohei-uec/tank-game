@@ -48,6 +48,25 @@ export class Room {
             players: map2stringJSON(this.players),
         }));
     }
+    //one player
+    broadcast_player(player) {
+        this.broadcast(JSON.stringify({
+            event: 'update_player',
+            player: player,
+        }));
+    }
+    //time
+    broadcast_time(time) {
+        this.broadcast(JSON.stringify({
+            event: 'update_time',
+            time: time,
+        }))
+    }
+    broadcast_game_over(){
+        this.broadcast(JSON.stringify({
+            event: 'game_over',
+        }));
+    }
     //
     sendRoomInfo(user_id) {
         this.broadcast(JSON.stringify({

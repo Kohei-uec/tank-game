@@ -125,4 +125,31 @@ setMyEventListener('game_start', (data, options)=>{
     if(!player.isOwner){return;}
     const GM = new GameManager(room)
     GM.initialize();
+    GM.onUpdateTime = (time)=> {
+        room.broadcast_time(time);
+    }
+    GM.onTimeOver = ()=> {
+        room.broadcast_game_over()
+        //closeRoom(rooms, room.id);
+    }
+});
+
+setMyEventListener('control', (data, options)=>{
+    const [room, player] = options;
+    const controller = data.controller;
+    console.log(controller);
+    if(controller.w){
+        player.position.x += 0.1;
+    }
+    if(controller.s){
+        player.position.x -= 0.1;
+    }
+    if(controller.a){
+        player.position.z += 0.1;
+    }
+    if(controller.d){
+        player.position.z -= 0.1;
+    }
+    room.broadcast_player(player);
+
 })

@@ -14,7 +14,7 @@ export function stringJSON2map (str) {
     const json = JSON.parse(str);
     const map = new Map();
     for (const [key, value] of Object.entries(json)) {
-        map.set(key, value);
+        map.set(Number(key), value);
     }
     return map;
 }
