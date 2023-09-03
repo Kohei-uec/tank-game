@@ -38,9 +38,13 @@ serve(async (req) => {
         const name = (await req.json()).name;
 
         const room = createNewRoom(rooms, name);
+        const model = new Model(room);
+        room.model = model;
+        room.model.initialize();
+        room.model.start();
         console.log('new room id:', room.id);
 
-        return new Response(JSON.stringify(room));
+        return new Response(JSON.stringify({id:room.id}));
     }
 
     //join room
@@ -132,9 +136,8 @@ setMyEventListener('game_start', (data, options)=>{
     const [room, player] = options;
     if(!player.isOwner){return;}
     const GM = new GameManager(room);
-    const model = new Model(room);
 
-    GM.model = model;
+    GM.model = room.model;
     GM.initialize();
     GM.onUpdateTime = (time)=> {
         room.broadcast_time(time);
@@ -144,14 +147,12 @@ setMyEventListener('game_start', (data, options)=>{
         //closeRoom(rooms, room.id);
     }
 
-
-    setMyEventListener('shoot', (data, options)=>{
-        const [room, player] = options;
-        model.shoot(player);
-    
-    });
 });
 
+setMyEventListener('shoot', (data, options)=>{
+    const [room, player] = options;
+    room.model.shoot(player);
+});
 setMyEventListener('control', (data, options)=>{
     const [room, player] = options;
     const control = data.controller;

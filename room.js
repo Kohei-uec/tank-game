@@ -10,6 +10,7 @@ export class Room {
         this.players = new Map();
         this.controllers = new Map();
         this.bullets = new Map();
+        this.model = null;
 
         this.max_member = 10;
     }

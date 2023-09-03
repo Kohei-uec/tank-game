@@ -72,6 +72,9 @@
     "https://deno.land/std@0.194.0/path/separator.ts": "0fb679739d0d1d7bf45b68dacfb4ec7563597a902edbaf3c59b50d5bcadd93b1",
     "https://deno.land/std@0.194.0/path/win32.ts": "d186344e5583bcbf8b18af416d13d82b35a317116e6460a5a3953508c3de5bba",
     "https://deno.land/std@0.194.0/streams/byte_slice_stream.ts": "225d57263a34325d7c96cb3dafeb478eec0e6fd05cd0458d678752eadd132bb4",
-    "https://deno.land/std@0.194.0/version.ts": "04e5fc461ac4ab1f4d2d0bdc814fbbed940319e9939096f4334b1db8216f102d"
+    "https://deno.land/std@0.194.0/version.ts": "04e5fc461ac4ab1f4d2d0bdc814fbbed940319e9939096f4334b1db8216f102d",
+    "https://unpkg.com/three@0.152.2/build/three.module.js": "4d01ed1c468372b16732fcecfeb2f463ac1b29b0fc296b2d64ec084e32876b39",
+    "https://unpkg.com/three@0.152.2/examples/jsm//utils/BufferGeometryUtils.js": "889ea11dacd78b15ed26ba7cb0371ceaeda0072f1ae556b44471e4aa259a86c3",
+    "https://unpkg.com/three@0.152.2/examples/jsm/controls/OrbitControls.js": "366f9ec2e4c742e52eb85ab6d54c282524f4cdaf54da07f56afad469ee30b212"
   }
 }

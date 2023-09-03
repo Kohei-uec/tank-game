@@ -26,6 +26,9 @@ export class Model{
         this.bullets = room.bullets;
         this.bullet_num = 0;
     }
+    initialize(){
+        this.bullets.clear();
+    }
 
     start(){
         console.log('model start')

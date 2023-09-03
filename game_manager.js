@@ -25,8 +25,9 @@ export class GameManager {
 
         //set timer
         this.timer = this.startCountdown(0.5);
-        this.model.bullets.clear();
-        this.model.start();
+
+        //model
+        this.model.initialize();
     }
 
     //timer
