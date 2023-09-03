@@ -31,6 +31,12 @@ setSocketEventListener('update_players',(data)=>{
 
     View.delTank(players);
 });
+setSocketEventListener('update_model',(data)=>{
+    players = stringJSON2map(data.players);
+    for (const player of players.values()) {
+        View.setMyTankPos(player);
+    }
+});
 setSocketEventListener('update_player', (data)=>{
     const player = data.player;
     players.set(player.id, player);

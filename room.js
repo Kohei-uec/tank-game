@@ -1,5 +1,5 @@
 import { map2stringJSON } from "./public/js/util.js";
-import { GameManager } from "./game_manager.js";
+import { Controller } from "./model.js";
 
 export class Room {
     constructor(id, name) {
@@ -8,6 +8,7 @@ export class Room {
         this.owner_pass = "abc";
         this.connectedClients = new Map();
         this.players = new Map();
+        this.controllers = new Map();
 
         this.max_member = 5;
     }
@@ -18,11 +19,13 @@ export class Room {
     }
     addPlayer(player) {
         this.players.set(player.id, player);
+        this.controllers.set(player.id, new Controller(player.id));
     }
     //playerを削除
     delPlayer(player) {
         this.connectedClients.delete(player.id);
         this.players.delete(player.id)
+        this.controllers.delete(player.id);
     }
 
     /*
@@ -46,6 +49,12 @@ export class Room {
     broadcast_players() {
         this.broadcast(JSON.stringify({
             event: 'update_players',
+            players: map2stringJSON(this.players),
+        }));
+    }
+    broadcast_model() {
+        this.broadcast(JSON.stringify({
+            event: 'update_model',
             players: map2stringJSON(this.players),
         }));
     }

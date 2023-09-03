@@ -1,3 +1,5 @@
+import { Model } from "./model.js";
+
 //import { Player } from "./player.js";
 export class GameManager {
     constructor(room) {
@@ -7,6 +9,8 @@ export class GameManager {
 
         this.onTimeOver = null;
         this.onUpdateTime = null;
+        
+        this.model = new Model(room);
     }
 
     initialize() {
@@ -21,7 +25,7 @@ export class GameManager {
 
         //set timer
         this.timer = this.startCountdown(0.5);
-
+        this.model.start();
     }
 
     //timer
@@ -40,6 +44,7 @@ export class GameManager {
 
     timeOver() {
         console.log('time over');
+        this.model.stop();
         this.onTimeOver();
     }
 

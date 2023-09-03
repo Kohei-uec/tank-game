@@ -123,7 +123,7 @@ const rooms = new Map();
 setMyEventListener('game_start', (data, options)=>{
     const [room, player] = options;
     if(!player.isOwner){return;}
-    const GM = new GameManager(room)
+    const GM = new GameManager(room);
     GM.initialize();
     GM.onUpdateTime = (time)=> {
         room.broadcast_time(time);
@@ -136,22 +136,23 @@ setMyEventListener('game_start', (data, options)=>{
 
 setMyEventListener('control', (data, options)=>{
     const [room, player] = options;
-    const controller = data.controller;
+    const control = data.controller;
+    const controller = room.controllers.get(player.id);
     //console.log(controller);
-    if(controller.w){
-        player.position.x += 0.1;
+    if(control.w){
+        controller.move = 1;
+    } else if(control.s){
+        controller.move = -1;
+    } else {
+        controller.move = 0;
     }
-    if(controller.s){
-        player.position.x -= 0.1;
+    if(control.a){
+        controller.rotate = -1;
+    } else if(control.d){
+        controller.rotate = 1;
+    } else {
+        controller.rotate = 0;
     }
-    if(controller.a){
-        player.position.z -= 0.1;
-    }
-    if(controller.d){
-        player.position.z += 0.1;
-    }
-    room.broadcast_player(player);
-
 });
 
 setMyEventListener('change_color', (data, options)=>{

@@ -21,4 +21,9 @@ export class Player {
         this.position.x = x;
         this.position.z = z;
     }
+
+    move(v){
+        this.position.x += v.x;
+        this.position.z += v.z;
+    }
 }
