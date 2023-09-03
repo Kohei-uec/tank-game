@@ -12,7 +12,7 @@ let camera;
 let controls;
 const field_width = 256;
 let meshFloor;
-export let myTank;
+
 const listeners = [];
 export function addEventListener(func){
     listeners.push(func);
@@ -65,11 +65,8 @@ export function initialize() {
     const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
     //scene.add(helper);
 
-    //add tank
-    myTank = TankMesh();
-    scene.add(myTank);
-    tick();
 
+    tick();
     // 毎フレーム時に実行されるループイベント
     function tick() {
         for(const func of listeners) {
@@ -110,6 +107,34 @@ function createDirectionalLight(theta, field_width, field_height) {
 }
 
 //TANK
+const tanks = new Map();
+export function addTank (player) {
+    if(tanks.has(player.id)){return;}
+    const tank = TankMesh();
+    tanks.set(player.id, tank);
+    scene.add(tank);
+}
+export function delTank(players){
+    for(const tank_key of tanks.keys()) {
+        if(!players.has(tank_key)){
+            console.log('del',tank_key);
+            const mesh = tanks.get(tank_key);
+            scene.remove(mesh);
+            mesh.material.dispose();
+            mesh.geometry.dispose();
+        }
+    }
+}
+export function setMyTankPos(player) {
+    const myTank = tanks.get(player.id);
+    myTank.position.x = player.position.x;
+    myTank.position.z = player.position.z;
+}
+export function setMyTankColor(player, color){
+    const tank = tanks.get(player.id);
+    if(!tank){return;}
+    tank.material.setValues({color: color});
+}
 function TankMesh(){
     //TANK!
     //const material = new THREE.MeshNormalMaterial();

@@ -22,6 +22,7 @@ export class Room {
     //playerを削除
     delPlayer(player) {
         this.connectedClients.delete(player.id);
+        this.players.delete(player.id)
     }
 
     /*
@@ -55,6 +56,14 @@ export class Room {
             player: player,
         }));
     }
+    broadcast_player_color(player,color) {
+        this.broadcast(JSON.stringify({
+            event: 'update_player',
+            player: player,
+            color: color,
+        }));
+    }
+
     //time
     broadcast_time(time) {
         this.broadcast(JSON.stringify({
@@ -69,11 +78,12 @@ export class Room {
     }
     //
     sendRoomInfo(user_id) {
-        this.broadcast(JSON.stringify({
+        this.connectedClients.get(user_id).send(JSON.stringify({
             event: 'room_info',
             room_id: this.id,
             room_name: this.name,
             max_member: this.max_member,
+            player: this.players.get(user_id),
         }));
     }
 

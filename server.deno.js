@@ -96,7 +96,7 @@ serve(async (req) => {
             console.log('socket errored:', e);
         };
         socket.onclose = () => {
-            room.connectedClients.delete(user_id);
+            room.delPlayer(player);
 
             //auto del room
             if (room.connectedClients.size === 0) {
@@ -137,7 +137,7 @@ setMyEventListener('game_start', (data, options)=>{
 setMyEventListener('control', (data, options)=>{
     const [room, player] = options;
     const controller = data.controller;
-    console.log(controller);
+    //console.log(controller);
     if(controller.w){
         player.position.x += 0.1;
     }
@@ -145,11 +145,18 @@ setMyEventListener('control', (data, options)=>{
         player.position.x -= 0.1;
     }
     if(controller.a){
-        player.position.z += 0.1;
+        player.position.z -= 0.1;
     }
     if(controller.d){
-        player.position.z -= 0.1;
+        player.position.z += 0.1;
     }
     room.broadcast_player(player);
 
-})
+});
+
+setMyEventListener('change_color', (data, options)=>{
+    const [room, player] = options;
+    const color = data.color;
+    player.color = color;
+    room.broadcast_players();
+});

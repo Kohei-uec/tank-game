@@ -25,7 +25,7 @@ export class Controller {
                 this.d = true;
             }
             this.onChange();
-            console.log(event.keyCode);
+            //console.log(event.keyCode);
         });
 
         window.addEventListener('keyup', (event) => {
@@ -43,7 +43,7 @@ export class Controller {
                 this.d = false;
             }
             this.onChange();
-            console.log(event.keyCode);
+            //console.log(event.keyCode);
         });
     }
 }

@@ -7,6 +7,7 @@ import { stringJSON2map } from './util.js';
 import { setColorChangedListener, lockLobbyFunc, unlockLobbyFunc } from './lobby.js';
 import * as View from './view.js';
 
+let player = null;
 //connection ==============================================
 const socket = await connectSocket();
 let players = null;
@@ -16,14 +17,27 @@ setSocketEventListener('update_players',(data)=>{
     const span = document.getElementById('member');
     let html = '';
     for (const player of players.values()) {
+        //add tank
+        View.addTank(player);
+        
+        //change color
+        if(player.color){
+            View.setMyTankColor(player, player.color);
+        }
+
         html += `<div>[${player.id}]${player.name}</div>`;
     }
     span.innerHTML = html;
+
+    View.delTank(players);
 });
 setSocketEventListener('update_player', (data)=>{
     const player = data.player;
     players.set(player.id, player);
-    console.log(players);
+    //console.log(players);
+
+    //move the tank
+    View.setMyTankPos(player);
 });
 setSocketEventListener('update_time', (data)=>{
     const time = data.time;
@@ -39,9 +53,18 @@ setSocketEventListener('update_time', (data)=>{
 setSocketEventListener('room_info', (data)=>{
     const room_name = data.room_name;
     const max_member = data.max_member;
+    player = data.player;
 
     document.getElementById('room_name').innerText = room_name;
     document.getElementById('max_member').innerText = max_member;
+
+    //add my tank
+    View.addTank(player);
+
+    
+    document.getElementById('room_exit').onclick = ()=>{
+        socket.close();
+    };
 });
 setSocketEventListener('isOwner', (data)=>{
     isOwner  = true;
@@ -75,9 +98,6 @@ setSocketEventListener('game_over', (data)=>{
     }
 });
 
-document.getElementById('room_exit').onclick = ()=>{
-    location.href = './index.html';
-};
 
 
 //controller
@@ -91,21 +111,19 @@ controller.onChange = ()=>{
 
 //color
 setColorChangedListener((color)=>{
-    resetTankColor(color);
+    socket.send(JSON.stringify({
+        event: 'change_color',
+        color: color,
+    }))
 });
 
 
-//============
+// View =======================
 View.initialize();
-
-
-
-function resetTankColor(color){
-    View.myTank.material.setValues({color: color});
-}
 
 // 毎フレーム時に実行されるイベント
 View.addEventListener( ()=>{
+    return;
     if (controller.w) {
         View.myTank.position.x += 0.1;
         View.myTank.position.x %= 128;
