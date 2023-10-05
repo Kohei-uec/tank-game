@@ -148,6 +148,14 @@ export class Model{
     //
     shoot(player){
         if(this.bullets.size > 100){return;}
+        if(player.canShoot){
+            player.canShoot = false;
+            window.setTimeout(()=>{
+                player.canShoot = true;
+            },500);
+        }else{
+            return;
+        }
         const id = player.id*10000+ (this.bullet_num++ % 1000);
         this.bullets.set(
             id,

@@ -8,6 +8,8 @@ export class Player {
         this.position = { x: 0, z: 0 };
         this.speed = 0;
         this.angle = 0;
+
+        this.canShoot = true;
     }
 
     getVelocity() {
