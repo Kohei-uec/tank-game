@@ -11,8 +11,8 @@ export class Controller{
 export class Model{
     constructor(room){
         //listener
-        this.onupdate = null;
-        this.onDeath = null;
+        this.onupdate = ()=>{};
+        this.onDeath = ()=>{};
 
         this.players = room.players;
         this.controllers = room.controllers;

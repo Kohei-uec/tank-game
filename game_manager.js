@@ -72,6 +72,7 @@ export class GameManager {
 
     //死んだときの処理
     reBone(player){
+        const field_width = 256;
         const x = Math.floor((Math.random()-0.5)*field_width);
         const y = Math.floor((Math.random()-0.5)*field_width);
         player.setPosition(x,y);
