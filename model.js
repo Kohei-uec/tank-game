@@ -122,10 +122,10 @@ export class Model{
         }else if(player.position.x < -this.field_width/2){
             player.position.x = -this.field_width/2
         }
-        if(player.position.y > this.field_width/2){
-            player.position.y = this.field_width/2
-        }else if(player.position.y < -this.field_width/2){
-            player.position.y = -this.field_width/2
+        if(player.position.z > this.field_width/2){
+            player.position.z = this.field_width/2
+        }else if(player.position.z < -this.field_width/2){
+            player.position.z = -this.field_width/2
         }
         
 
