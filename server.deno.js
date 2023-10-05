@@ -184,3 +184,9 @@ setMyEventListener('change_color', (data, options)=>{
     player.color = color;
     room.broadcast_players();
 });
+
+setMyEventListener('change_speed', (data, options)=>{
+    const [room, player] = options;
+    const speed = data.speed;
+    room.model.changeSpeed(speed);
+})

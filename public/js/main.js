@@ -136,6 +136,17 @@ setColorChangedListener((color)=>{
     }))
 });
 
+//speed change
+const s_range = document.getElementById("speed_change")
+s_range.oninput = ()=>{
+    const s = s_range.value;   
+    //console.log(s);
+    socket.send(JSON.stringify({
+        event: 'change_speed',
+        speed: s,
+    }));
+}
+
 
 // View =======================
 View.initialize();

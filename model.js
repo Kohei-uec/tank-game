@@ -163,6 +163,10 @@ export class Model{
         );
     }
 
+    changeSpeed(speed){
+        this.max_speed = speed/this.fps;
+    }
+
 }
 
 const size = 10;
