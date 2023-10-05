@@ -73,7 +73,7 @@ export class Model{
                     size*0.9,
                 );
                 if(isHit){
-                    console.log('hit');
+                    //console.log('hit');
                     player.hp -= 10;
                     this.bullets.delete(bullet.id);
 
@@ -116,6 +116,18 @@ export class Model{
                 }
             }
         }
+        //範囲内
+        if(player.position.x > this.field_width/2){
+            player.position.x = this.field_width/2
+        }else if(player.position.x < -this.field_width/2){
+            player.position.x = -this.field_width/2
+        }
+        if(player.position.y > this.field_width/2){
+            player.position.y = this.field_width/2
+        }else if(player.position.y < -this.field_width/2){
+            player.position.y = -this.field_width/2
+        }
+        
 
         //angel
         if(controller.rotate > 0){
