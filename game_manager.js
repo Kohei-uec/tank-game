@@ -4,6 +4,14 @@
 export class GameManager {
     constructor(room) {
         this.players = room.players;
+        this.result = new Map();
+        for(const id of this.players.keys()){
+            this.result.set(id, {
+                death: 0,
+                kill: 0,
+            });
+        }
+
         this.field = new Field();
         this.time = 5 * 60 * 1000;
 
@@ -13,11 +21,19 @@ export class GameManager {
         this.model = null;
     }
 
+    setModel(model){
+        this.model = model;
+        this.model.onDeath = (player)=>{
+            this.reBone(player);
+        };
+    }
+
     initialize() {
         console.log('init game')
         //set players position
         for(const player of this.players.values()) {
             player.setPosition(0,0);
+            player.angle = 0;
             player.hp = 100;
         }
 
@@ -47,8 +63,17 @@ export class GameManager {
 
     timeOver() {
         console.log('time over');
-        this.model.stop();
+        //this.model.stop();
         this.onTimeOver();
+    }
+
+    //死んだときの処理
+    reBone(player){
+        player.setPosition(0,0);
+        player.angle = 0;
+        player.hp = 100;
+        const result = this.result.get(player.id);
+        result.death ++;
     }
 
 }

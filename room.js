@@ -5,7 +5,6 @@ export class Room {
     constructor(id, name) {
         this.id = id;
         this.name = name;
-        this.owner_pass = "abc";
         this.connectedClients = new Map();
         this.players = new Map();
         this.controllers = new Map();

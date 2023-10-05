@@ -44,8 +44,9 @@ serve(async (req) => {
         room.model.initialize();
         room.model.start();
         console.log('new room id:', room.id);
-
-        return new Response(JSON.stringify({id:room.id}));
+        const pass = 'pass';
+        room.owner_pass = pass;
+        return new Response(JSON.stringify({id:room.id, pass:pass}));
     }
 
     //join room
@@ -54,6 +55,8 @@ serve(async (req) => {
         const { socket, response } = Deno.upgradeWebSocket(req);
         const user_name = url.searchParams.get('name');
         const room_id = url.searchParams.get('room') - 0;
+        const pass = url.searchParams.get('pass');
+
         //console.log(rooms.has(room_id),room_id,rooms);
 
         //部屋がない
@@ -138,7 +141,7 @@ setMyEventListener('game_start', (data, options)=>{
     if(!player.isOwner){return;}
     const GM = new GameManager(room);
 
-    GM.model = room.model;
+    GM.setModel(room.model);
     GM.initialize();
     GM.onUpdateTime = (time)=> {
         room.broadcast_time(time);

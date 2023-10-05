@@ -10,7 +10,10 @@ export class Controller{
 
 export class Model{
     constructor(room){
+        //listener
         this.onupdate = null;
+        this.onDeath = null;
+
         this.players = room.players;
         this.controllers = room.controllers;
         this.field_width = 256;
@@ -73,6 +76,11 @@ export class Model{
                     console.log('hit');
                     player.hp -= 10;
                     this.bullets.delete(bullet.id);
+
+                    //死亡判定
+                    if(player.hp <= 0){
+                        this.onDeath(player);
+                    }
                 }
             }
         }
