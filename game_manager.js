@@ -4,13 +4,6 @@
 export class GameManager {
     constructor(room) {
         this.players = room.players;
-        this.result = new Map();
-        for(const id of this.players.keys()){
-            this.result.set(id, {
-                death: 0,
-                kill: 0,
-            });
-        }
 
         this.field = new Field();
         this.time = 5 * 60 * 1000;
@@ -78,8 +71,6 @@ export class GameManager {
         player.setPosition(x,y);
         player.angle = Math.atan2(-y,-x);
         player.hp = 100;
-        const result = this.result.get(player.id);
-        result.death ++;
     }
 
 }
