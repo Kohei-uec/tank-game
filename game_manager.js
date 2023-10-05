@@ -31,9 +31,12 @@ export class GameManager {
     initialize() {
         console.log('init game')
         //set players position
+        const field_width = 256;
         for(const player of this.players.values()) {
-            player.setPosition(0,0);
-            player.angle = 0;
+            const x = Math.floor((Math.random()-0.5)*field_width);
+            const y = Math.floor((Math.random()-0.5)*field_width);
+            player.setPosition(x,y);
+            player.angle = Math.atan2(-y,-x);
             player.hp = 100;
         }
 
@@ -69,8 +72,10 @@ export class GameManager {
 
     //死んだときの処理
     reBone(player){
-        player.setPosition(0,0);
-        player.angle = 0;
+        const x = Math.floor((Math.random()-0.5)*field_width);
+        const y = Math.floor((Math.random()-0.5)*field_width);
+        player.setPosition(x,y);
+        player.angle = Math.atan2(-y,-x);
         player.hp = 100;
         const result = this.result.get(player.id);
         result.death ++;
