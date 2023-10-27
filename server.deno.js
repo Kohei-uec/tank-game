@@ -36,13 +36,26 @@ serve(async (req) => {
       }*/
 
         const name = (await req.json()).name;
-
+        //room setting
         const room = createNewRoom(rooms, name);
+        //model
         const model = new Model(room);
         model.onupdate = ()=>{room.broadcast_model()};
         room.model = model;
         room.model.initialize();
         room.model.start();
+        //game manager
+        const GM = new GameManager(room);
+        GM.setModel(room.model);
+        GM.initialize();
+        GM.onUpdateTime = (time)=> {
+            room.broadcast_time(time);
+        }
+        GM.onTimeOver = ()=> {
+            room.broadcast_game_over()
+            //closeRoom(rooms, room.id);
+        }
+
         console.log('new room id:', room.id);
         const pass = 'pass';
         room.owner_pass = pass;
@@ -139,18 +152,7 @@ setMyEventListener('end', (data, options)=>{
 setMyEventListener('game_start', (data, options)=>{
     const [room, player] = options;
     if(!player.isOwner){return;}
-    const GM = new GameManager(room);
-
-    GM.setModel(room.model);
-    GM.initialize();
-    GM.onUpdateTime = (time)=> {
-        room.broadcast_time(time);
-    }
-    GM.onTimeOver = ()=> {
-        room.broadcast_game_over()
-        //closeRoom(rooms, room.id);
-    }
-
+    room.gameStart();
 });
 
 setMyEventListener('shoot', (data, options)=>{

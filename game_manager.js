@@ -24,6 +24,18 @@ export class GameManager {
     initialize() {
         console.log('init game')
         //set players position
+        this.setPlayersPosition();
+
+        //init field
+        this.field.initialize();
+
+        //set timer
+        //this.timer = this.startCountdown(0.5);
+
+        //model
+        this.model.initialize();
+    }
+    setPlayersPosition(){
         const field_width = 256;
         for(const player of this.players.values()) {
             const x = Math.floor((Math.random()-0.5)*field_width);
@@ -32,15 +44,6 @@ export class GameManager {
             player.angle = Math.atan2(-y,-x);
             player.hp = 100;
         }
-
-        //init field
-        this.field.initialize();
-
-        //set timer
-        this.timer = this.startCountdown(0.5);
-
-        //model
-        this.model.initialize();
     }
 
     //timer
@@ -59,7 +62,7 @@ export class GameManager {
 
     timeOver() {
         console.log('time over');
-        //this.model.stop();
+        this.model.stop();
         this.onTimeOver();
     }
 

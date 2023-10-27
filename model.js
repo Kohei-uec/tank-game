@@ -165,6 +165,8 @@ export class Model{
 
     changeSpeed(speed){
         this.max_speed = speed/this.fps;
+        this.accel = speed/20/this.fps;
+        this.resistance = speed*3/20/this.fps;
     }
 
 }

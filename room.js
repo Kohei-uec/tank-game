@@ -35,6 +35,9 @@ export class Room {
         this.gameManager = new GameManager(this);
     }
     */
+    gameStart(){
+        this.model?.startCountdown(0.5);
+    }
 
     //broadcast============================
     broadcast(message) {
