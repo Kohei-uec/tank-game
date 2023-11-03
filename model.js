@@ -142,7 +142,7 @@ export class Model{
 
     //update bullet
     update_bullet(bullet){
-        const v = bullet.getVelocity(this.bullet_speed);
+        const v = bullet.getVelocity(bullet.speed);
         bullet.move(v);
     }
     //
